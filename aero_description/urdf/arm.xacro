@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="0.4 0.4 0.1"/>  
+            </geometry>
+            <origin xyz="0 0 0.05" rpy="0 0 0"/>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.4 0.4 0.1"/>  
+            </geometry>
+            <origin xyz="0 0 0.05" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="shoulder_yaw_joint" type="revolute">
+        <parent link="base_link"/>
+        <child link="shoulder_link"/>
+        <origin xyz="0 0 0.1" rpy="0 0 0"/>
+        <axis xyz="0 0 1" />
+        <limit effort="1000.0" velocity="1.0" lower="-3.14" upper="3.14"/>
+    </joint>
+
+    <link name="shoulder_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.5" radius="0.06"/>
+            </geometry>
+            <origin xyz="0 0 0.25" rpy="0 0 0"/>
+            <material name="matte_black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.5" radius="0.06"/>
+            </geometry>
+            <origin xyz="0 0 0.25" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="shoulder_pitch_joint" type="revolute">
+        <parent link="shoulder_link"/>
+        <child link="upper_arm_link"/>
+        <origin xyz="0 0 0.5" rpy="0 0 0"/>
+        <axis xyz="0 1 0" />
+        <limit effort="1000.0" velocity="1.0" lower="-1.57" upper="1.57"/>
+    </joint>
+
+    <link name="upper_arm_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.5" radius="0.06"/>
+            </geometry>
+            <origin xyz="0 0 0.25" rpy="0 0 0"/>
+            <material name="matte_black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.5" radius="0.06"/>
+            </geometry>
+            <origin xyz="0 0 0.25" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="elbow_joint" type="revolute">
+        <parent link="upper_arm_link"/>
+        <child link="forearm_link"/>
+        <origin xyz="0 0 0.5" rpy="0 0 0"/>
+        <axis xyz="0 1 0" />
+        <limit effort="1000.0" velocity="1.0" lower="-1.57" upper="1.57"/>
+    </joint>
+
+    <link name="forearm_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.5" radius="0.06"/>
+            </geometry>
+            <origin xyz="0 0 0.25" rpy="0 0 0"/>
+            <material name="matte_black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.5" radius="0.06"/>
+            </geometry>
+            <origin xyz="0 0 0.25" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="wrist_yaw_joint" type="revolute">
+        <parent link="forearm_link"/>
+        <child link="wrist_yaw_link"/>
+        <origin xyz="0 0 0.5" rpy="0 0 0"/> 
+        <axis xyz="0 0 1" />
+        <limit effort="100.0" velocity="2.0" lower="-3.14" upper="3.14"/>
+    </joint>
+
+    <link name="wrist_yaw_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.08" radius="0.04"/>
+            </geometry>
+            <origin xyz="0 0 0.04" rpy="0 0 0"/> 
+            <material name="matte_black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.08" radius="0.04"/>
+            </geometry>
+            <origin xyz="0 0 0.04" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+
+    <joint name="wrist_pitch_joint" type="revolute">
+        <parent link="wrist_yaw_link"/>
+        <child link="wrist_pitch_link"/>
+        <origin xyz="0 0 0.08" rpy="0 0 0"/> 
+        <axis xyz="0 1 0" />
+        <limit effort="100.0" velocity="2.0" lower="-1.57" upper="1.57"/>
+    </joint>
+
+    <link name="wrist_pitch_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.08" radius="0.035"/>
+            </geometry>
+            <origin xyz="0 0 0.04" rpy="0 0 0"/> 
+            <material name="matte_black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.08" radius="0.035"/>
+            </geometry>
+            <origin xyz="0 0 0.04" rpy="0 0 0"/>
+        </collision>
+    </link>
+
+    <joint name="wrist_roll_joint" type="revolute">
+        <parent link="wrist_pitch_link"/>
+        <child link="tool_flange_link"/>
+        <origin xyz="0 0 0.08" rpy="0 0 0"/> 
+        <axis xyz="1 0 0" /> 
+        <limit effort="100.0" velocity="2.0" lower="-3.14" upper="3.14"/>
+    </joint>
+
+    <link name="tool_flange_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.02" radius="0.04"/> </geometry>
+            <origin xyz="0 0 0.01" rpy="0 0 0"/> <material name="blue"/> </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.02" radius="0.04"/> </geometry>
+            <origin xyz="0 0 0.01" rpy="0 0 0"/> </collision>
+    </link>
+
+</robot>
